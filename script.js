@@ -104,7 +104,8 @@ function showMenu() {
 }
 
 function checkMenu() {
-    var fullView = document.documentElement.clientHeight;
+    //var fullView = document.documentElement.clientHeight; // на всю высоту
+    fullView = 700;
     var curentScroll = window.pageYOffset;
     var fullWidth = document.documentElement.clientWidth;
     
@@ -115,5 +116,13 @@ function checkMenu() {
     } else {
         console.log('net!!!');
         document.getElementById('menu').hidden= true;
+    }
+}
+
+function chengeFoto(folder) {
+    var images = document.getElementsByClassName('primer');
+    for (var i =0; i < images.length; i++) {
+        var ii = i+1;
+        images[i].src = 'img/examples/'+folder+'/primer'+ii+'.jpg';
     }
 }

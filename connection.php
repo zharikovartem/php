@@ -102,7 +102,7 @@ function editTask($name, $arr) {
        }
     }
     $query = "UPDATE `$name` SET".$item.' WHERE `'.$name.'`.`id` = '.$arr['id'];
-    echo $query;
+    //echo $query;
 
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка1 " . mysqli_error($link));
@@ -130,6 +130,7 @@ function printCard($id) {
         <span id="child'.$id.'" hidden>'.$arr[$id]['child'].'</span>
         <span id="complited'.$id.'" hidden>'.$arr[$id]['completed'].'</span>
         <span id="timeToCompleted'.$id.'">'.getTime($id).'</span>
+        <span>('.$arr[$id]['start'].')</span>
         <div class="float-right">
         <button class="btn btn-success start" onclick="startTask('.$id.');" >Start</button>
         </div>
@@ -248,7 +249,17 @@ function timeToMin($time) {
 }
 
 
-function minToTime($time) {
+function saveTime($time) {
+    $arr = selectAll('task');
+    
+    echo date('d m Y H:i:s');
+    echo '<br>'.$time['start'];
+    echo '<br>'.$arr[$time['id']]['start'];
 
+    $totalTime = timeToMin($time['start']) + timeToMin($arr[$time['id']]['start']);
+
+    $time['start'] = date("H:i:s", mktime(0, 0, $totalTime));
+    editTask('task', $time);
+    echo '<br>result: '.$time['start'];//298
 }
  

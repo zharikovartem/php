@@ -20,7 +20,10 @@
     require_once 'connection.php'; // подключаем скрипт
     //echo printElement('3');
     if (isset($_GET["timeAfterStart"])) {
-      echo 'timeAfterStart: '.$_GET["timeAfterStart"];
+      //echo 'timeAfterStart: '.$_GET["timeAfterStart"].'<br>';
+      $start['id'] = $_GET["startId"];
+      $start['start'] = $_GET["timeAfterStart"];
+      saveTime($start);
     }
     if (isset($_POST["dellId"])) {
       echo 'work!!!<br>';
@@ -81,6 +84,7 @@
   <div class="card-body">
     <h4 class="card-title" id="startTitle">Активная задача</h4>
     <p id="stop" class="card-text" hidden>
+    
       3
     </p>
     <span>Время на выполнение: </span> 
@@ -89,7 +93,8 @@
     <span>Время после старта: </span> 
     <span name="timeAfterStart" id="timeAfterStart"></span>
     <br>
-
+    <input type="text" name="startId" id="startId" hidden/>
+    <br>
     <a class="btn btn-primary" onclick="stop();">Pause</a>
     <button type="submit" class="btn btn-primary" onclick="setTime();">Complete</button>
   </div>

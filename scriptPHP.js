@@ -57,6 +57,7 @@ function createNew() {
 
 function startTask(id) {
     document.getElementById('stop').innerHTML = '0';
+    document.getElementById('startId').value = id;
     var buttons = document.getElementsByClassName('start');
     for (var i=0; i < buttons.length; i++) {
         buttons[i].hidden = 'true';
@@ -108,5 +109,6 @@ function stop() {
 
 function setTime() {
     var time = document.getElementById('timeAfterStart').innerHTML;
-    document.getElementById('stop').innerHTML = '<input type="time" name="timeAfterStart" hidden value="'+time+'">';
+    document.getElementById('stop').innerHTML = '<input type="time" name="timeAfterStart" hidden value="'+time+'">'+
+    '<input type="text" name="timeId" value=""></input>';
 }

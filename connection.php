@@ -129,7 +129,10 @@ function printCard($id) {
         <a id="name'.$id.'" class="'.$hide.'" data-toggle="collapse" href="#collapse'.$id.'" aria-expanded="false" aria-controls="collapse'.$id.'">'.$arr[$id]['name'].'</a>
         <span id="child'.$id.'" hidden>'.$arr[$id]['child'].'</span>
         <span id="complited'.$id.'" hidden>'.$arr[$id]['completed'].'</span>
-        <span>'.getTime($id).'</span>
+        <span id="timeToCompleted'.$id.'">'.getTime($id).'</span>
+        <div class="float-right">
+        <button class="btn btn-success start" onclick="startTask('.$id.');" >Start</button>
+        </div>
       </h5>
     </div>
     ';

@@ -19,6 +19,9 @@
     <?php
     require_once 'connection.php'; // подключаем скрипт
     //echo printElement('3');
+    if (isset($_GET["timeAfterStart"])) {
+      echo 'timeAfterStart: '.$_GET["timeAfterStart"];
+    }
     if (isset($_POST["dellId"])) {
       echo 'work!!!<br>';
       dellIt('task', $_POST["dellId"]);
@@ -55,7 +58,7 @@
   </div>
 </div> -->
 <div id="accordionSettings" role="tablist">
-  <div class="card">
+  <div class="card" >
     <div class="card-header d-flex justify-content-end" role="tab" id="headingSettings">
       <h5 class="mb-0">
         <a data-toggle="collapse" href="#collapseSettings" aria-expanded="true" aria-controls="collapseSettings">
@@ -66,11 +69,33 @@
 
     <div id="collapseSettings" class="collapse" role="tabpanel" aria-labelledby="headingSettings">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+        Сюда следует добавить настройки для отображения задач
       </div>
     </div>
   </div>
 </div>
+
+<form method="get" action="index.php">
+<div class="container-fluid" id="start">
+  <div class="card">
+  <div class="card-body">
+    <h4 class="card-title" id="startTitle">Активная задача</h4>
+    <p id="stop" class="card-text" hidden>
+      3
+    </p>
+    <span>Время на выполнение: </span> 
+    <span id="timeToCompleted"></span>
+    <br>
+    <span>Время после старта: </span> 
+    <span name="timeAfterStart" id="timeAfterStart"></span>
+    <br>
+
+    <a class="btn btn-primary" onclick="stop();">Pause</a>
+    <button type="submit" class="btn btn-primary" onclick="setTime();">Complete</button>
+  </div>
+  </div>
+</div>
+</form>
 
 
     <div class="container-fluid m-2">

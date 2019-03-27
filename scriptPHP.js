@@ -54,3 +54,59 @@ function createNew() {
     document.getElementById('formGroupExampleInput4').checked = false;
     //document.getElementById('complited'+id).innerHTML = '';
 }
+
+function startTask(id) {
+    document.getElementById('stop').innerHTML = '0';
+    var buttons = document.getElementsByClassName('start');
+    for (var i=0; i < buttons.length; i++) {
+        buttons[i].hidden = 'true';
+    }
+    var name = document.getElementById('name'+id).innerHTML;
+    document.getElementById('startTitle').innerHTML = name;
+    document.getElementById('timeToCompleted').innerHTML = document.getElementById('timeToCompleted'+id).innerHTML;
+    timer();
+}
+
+function timer() {
+    var time = 00;
+    var sec = 00;
+    var min = 00;
+    var hour = 00;
+    var timerId = setInterval(function() { //запускаем проверку на меню
+        //console.log( "тик" );
+        sec++;
+        if (sec >= 60) {
+            sec = 0;
+            min++;
+        }
+        if (min >= 60) {
+            min = 0;
+            hour++;
+        }
+        //console.log(sec.toString().length);
+        if (sec.toString().length ==1) { sec= '0'+sec; }
+        if (min.toString().length ==1) { min= '0'+min; }
+        if (hour.toString().length ==1) { hour= '0'+hour; }
+        time= hour+':'+min+':'+sec;
+        document.getElementById('timeAfterStart').innerHTML = time;
+
+        if (document.getElementById('stop').innerHTML == '1') {
+            clearInterval(timerId);
+            var buttons = document.getElementsByClassName('start');
+            for (var i=0; i < buttons.length; i++) {
+                console.log('stop');
+                buttons[i].hidden = false;
+            }
+        }
+      }, 1000);
+}
+
+function stop() {
+    document.getElementById('stop').innerHTML = '1';
+    console.log(document.getElementById('stop').innerHTML);
+}
+
+function setTime() {
+    var time = document.getElementById('timeAfterStart').innerHTML;
+    document.getElementById('stop').innerHTML = '<input type="time" name="timeAfterStart" hidden value="'+time+'">';
+}

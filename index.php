@@ -73,6 +73,13 @@
     <div id="collapseSettings" class="collapse" role="tabpanel" aria-labelledby="headingSettings">
       <div class="card-body">
         Сюда следует добавить настройки для отображения задач
+        <form method="get" action="index.php">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" name="showCompleted" id="showCompleted">
+          <label class="custom-control-label" for="showCompleted">Отображать завершенные задачи</label>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="">Save</button>
+        </form>
       </div>
     </div>
   </div>

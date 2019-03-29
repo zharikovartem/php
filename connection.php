@@ -203,7 +203,7 @@ function getChild($id) {
     foreach ($arr as $key => $value) {
         //проверяем на наличие чилдов
         //echo $value['id'].'<br>';
-        if ($value['child'] == $id) {
+        if ($value['child'] == $id  && $value['completed'] != '1') {
             //$time = $time + timeToMin($arr[$id]['realization']);
             //echo '<br>before time'. $time;
             $time = $time + timeToMin($value['realization'])+getChild($value['id']);

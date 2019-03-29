@@ -1,3 +1,9 @@
+<?php
+require_once 'testConnection.php'; // подключаем скрипт
+echo 'test';
+//var_dump (selectAll('task'));
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -17,7 +23,7 @@
 
 <body>
     <?php
-    require_once 'connection.php'; // подключаем скрипт
+    require_once 'testConnection.php'; // подключаем скрипт
     //echo printElement('3');
     if (isset($_GET["timeAfterStart"])) {
       //echo 'timeAfterStart: '.$_GET["timeAfterStart"].'<br>';
@@ -73,7 +79,7 @@
     <div id="collapseSettings" class="collapse" role="tabpanel" aria-labelledby="headingSettings">
       <div class="card-body">
         Сюда следует добавить настройки для отображения задач
-        <form method="get" action="index.php">
+        <form method="get" action="test.php">
         <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" name="showCompleted" id="showCompleted">
           <label class="custom-control-label" for="showCompleted">Отображать завершенные задачи</label>
@@ -85,7 +91,7 @@
   </div>
 </div>
 
-<form method="get" action="index.php">
+<form method="get" action="test.php">
 <div class="container-fluid" id="start">
   <div class="card">
   <div class="card-body">
@@ -111,7 +117,7 @@
 
 
     <div class="container-fluid m-2">
-        <button type="button" class="btn btn-primary"><a href="index.php" class="text-light">Refresh</a></button>
+        <button type="button" class="btn btn-primary"><a href="test.php" class="text-light">Refresh</a></button>
         <button type="button" class="btn btn-primary"><a href="index.html" class="text-light">Back</a></button>
         <!-- Modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="createNew();">
@@ -131,7 +137,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form method="get" action="index.php" id="tryIt">
+                    <form method="get" action="test.php" id="tryIt">
 
                         <div class="form-group">
                             <label for="formGroupExampleInput" id="actionToEdit">Id(не заполнять)</label>
@@ -189,7 +195,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form method="post" action="index.php" id="dellIt">
+                    <form method="post" action="test.php" id="dellIt">
                         <label for="deletedId" id="massege1">child</label>
                         <input type="text" class="form-control" name="dellId" id="deletedId" hidden>
                     </form>

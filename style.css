@@ -112,3 +112,11 @@ body {
   font-size: calc(14px + 0.7vw);
   font: bold;
 }
+
+/* input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+} */

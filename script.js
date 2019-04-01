@@ -1,10 +1,18 @@
 window.onload = changeTop('rgb(255, 255, 255)');
 window.onload = hideMenu();
 
-var timerId = setInterval(function() { //запускаем проверку на меню
-    //console.log( "тик" );
-    checkMenu();
-  }, 10);
+
+// var timerId = setInterval(function() { //запускаем проверку на меню
+//     //console.log( "тик" );
+//     checkMenu();
+//   }, 10);
+
+
+  $('.navbar-collapse a').click(function (e) {
+    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $('.navbar-collapse').collapse('toggle');
+    }
+});
 
 
 //document.getElementById('needTop').onresize = console.log('!!!');
@@ -103,21 +111,21 @@ function showMenu() {
     //////прячем меню
 }
 
-function checkMenu() {
-    //var fullView = document.documentElement.clientHeight; // на всю высоту
-    fullView = 700;
-    var curentScroll = window.pageYOffset;
-    var fullWidth = document.documentElement.clientWidth;
+// function checkMenu() {
+//     //var fullView = document.documentElement.clientHeight; // на всю высоту
+//     fullView = 700;
+//     var curentScroll = window.pageYOffset;
+//     var fullWidth = document.documentElement.clientWidth;
     
-    if(fullView <= curentScroll) { //проверяем прокрутку
-        console.log('nado!!!');
-        document.getElementById('menu').hidden= false;
-        //clearInterval(timerId);
-    } else {
-        console.log('net!!!');
-        document.getElementById('menu').hidden= true;
-    }
-}
+//     if(fullView <= curentScroll) { //проверяем прокрутку
+//         console.log('nado!!!');
+//         document.getElementById('menu').hidden= false;
+//         //clearInterval(timerId);
+//     } else {
+//         console.log('net!!!');
+//         document.getElementById('menu').hidden= true;
+//     }
+// }
 
 function chengeFoto(folder) {
     var images = document.getElementsByClassName('primer');

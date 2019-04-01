@@ -1,0 +1,1 @@
+var e=document.createElement("script");e.src="https://api.callbacky.by/simple/code?domain=steklopaket5.by&gtm=true&ver=227be0f8";e.type="text/javascript";e.async="true";document.getElementsByTagName("head")[0].appendChild(e);

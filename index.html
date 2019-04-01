@@ -6,12 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Натяжные потолки в минске!</title>
     <link rel="stylesheet" href="style.css"> <!-- подключили CSS -->
+    <link rel="stylesheet" type="text/css" href="bootstrapformhelpers/css/bootstrap-formhelpers.min.css">
+    <script type="text/javascript" src="bootstrapformhelpers/js/bootstrap-formhelpers.min.js"></script>
 </head>
 
 <body>
@@ -118,9 +121,7 @@
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-7 col-xl-6 heig1">
                                 <div class="div">
-                                    <p class="p-big float-left text-left"><b>- При заказе натяжного потолка светильники
-                                            в
-                                            подарок</b></p>
+                                    <p class="p-big float-left text-left"><b>- При заказе натяжного потолка ПВХ карниз в подарок</b></p>
 
                                 </div>
                             </div>
@@ -128,8 +129,7 @@
                         <div class="row ">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-7 col-xl-6 heig1
                             d-flex flex-wrap align-content-end">
-                                <p class="p-big float-right text-right"><b>При заказе натяжного потолка ПВХ карниз
-                                        в подарок -</b></p>
+                                <p class="p-big float-right text-right"><b>При заказе натяжного потолка светильники в подарок -</b></p>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-6 
                             heig1 ">
@@ -390,6 +390,7 @@
 
 <!-- Рассчитать заказ -->
     <div class="container-fluid p-0 mycol h-100 mb-5">
+            <form action="complet.php" method="POST">
         <div style="height: 500px; border: 10px solid red; background-color: antiquewhite;">
             <div class="row">
                 <!--Линия-->
@@ -397,10 +398,10 @@
                     <!--1й блок-->
                     <div class="row">
                         <div class="col-8  ">
-                            <label class="t-norm float-right my-1 align-baseline" for="space">Площадь помещения (м<sup>2</sup>)</label>
+                            <label class="t-norm float-right my-1 align-baseline" for="perim">Площадь помещения (м<sup>2</sup>)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" name="space" style="width: 60px;">
+                            <input type="text" class="form-control" required name="perim" style="width: 60px;">
                         </div>
                     </div>
                 </div>
@@ -408,10 +409,10 @@
                     <!--2й блок-->
                     <div class="row">
                         <div class="col-8  ">
-                            <label class="t-norm float-right" for="space">Светильники (шт)</label>
+                            <label class="t-norm float-right" for="svet">Светильники (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" name="space" style="width: 60px;">
+                            <input type="text" class="form-control" required name="svet" style="width: 60px;">
                         </div>
                     </div>
                 </div>
@@ -423,10 +424,10 @@
                     <!--1й блок-->
                     <div class="row">
                         <div class="col-8  ">
-                            <label class="t-norm float-right" for="space">Количество углов (шт)</label>
+                            <label class="t-norm float-right" for="angle">Количество углов (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" name="space" style="width: 60px;">
+                            <input type="text" class="form-control" required name="angle" style="width: 60px;">
                         </div>
                     </div>
                 </div>
@@ -434,10 +435,10 @@
                     <!--2й блок-->
                     <div class="row">
                         <div class="col-8  ">
-                            <label class="t-norm float-right" for="space">Количество люстр (шт)</label>
+                            <label class="t-norm float-right" for="chandelier">Количество люстр (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" name="space" style="width: 60px;">
+                            <input type="text" class="form-control" required name="chandelier" style="width: 60px;">
                         </div>
                     </div>
                 </div>
@@ -448,7 +449,7 @@
                     <div class="row">
                         
                         <div class="col-12 justify-content-center ">
-                            <input type="text" class="form-control mx-auto" name="space" style="width: 60%;" placeholder="Введите Имя">
+                            <input type="text" name="clientName" class="form-control mx-auto" required name="space" style="width: 60%;" placeholder="Введите Имя">
                         </div>
                     </div>
                 </div>
@@ -457,17 +458,23 @@
                     <div class="row">
                         
                         <div class="col-12 ">
-                                <input type="text" class="form-control mx-auto" name="space" style="width: 60%;" placeholder="Введите телефон">
+                                <div class="container">
+                                
+                                    <input type="text" name="clientPhone" style="width: 60%;" class="form-control bfh-phone mx-auto" data-format="+375( dd ) ddd-dd-dd"/>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
+                <button type="submit" class="btn btn btn-danger mt-5 mx-auto" >Рассчитать стоимость</button>
+
             </div>
-
-
-
+                
         </div>
+        </form>
     </div>
+    <!-- </div> -->
 
     <div class="conteiner-fluid ">
         <div class="justify-content-center">

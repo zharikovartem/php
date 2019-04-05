@@ -84,10 +84,25 @@ echo 'test';
       <div class="card-body">
         Сюда следует добавить настройки для отображения задач
         <form method="get" action="test.php">
-        <div class="custom-control custom-checkbox">
+        <!-- <div class="custom-control custom-checkbox">
           <input type="checkbox" class="custom-control-input" name="showCompleted" id="showCompleted">
           <label class="custom-control-label" for="showCompleted">Отображать завершенные задачи</label>
-        </div>
+        </div> -->
+        <?php
+          $allSettings = selectAll('taskSettings');
+          foreach ($allSettings as $key => $value) {
+            $checked = '';
+            if ($value['data'] == '1' && $value['type'] == 'checkbox') {
+              $checked = 'checked';
+            }
+            echo '
+            <div class="custom-control custom-checkbox">
+              <input type="'.$value['type'].'" class="custom-control-input" name="setting'.$value['id'].'" id="setting'.$value['id'].'" '.$checked.'>
+              <label class="custom-control-label" for="setting'.$value['id'].'">'.$value['name'].'</label>
+            </div>
+            ';
+          }
+        ?>
         <button type="submit" class="btn btn-primary" onclick="">Save</button>
         </form>
       </div>
@@ -219,6 +234,7 @@ echo 'test';
 
     <div id="accordion" role="tablist">
         <?php
+        
         foreach ($arr as $key => $value) {
           if ($value['child'] == 0) {
             printCard($value['id']);

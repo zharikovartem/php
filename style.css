@@ -59,12 +59,13 @@ body {
       height: 30px;
   }
   .p-big {
-    /* font-size: 4vw; */
-    /* font-size: 3vw; */
     font-size: calc(10px + 2vw);
-    /* font-size: 4vh; */
-      color: white;
   }
+
+  .p-big2 {
+    font-size: calc(12px + 3vw);
+  }
+
   .p-md {
     font-size: calc(5px + 2vw);
     /* font-size: 3vw; */

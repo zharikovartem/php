@@ -1,5 +1,5 @@
 window.onload = changeTop('rgb(255, 255, 255)');
-window.onload = hideMenu();
+//window.onload = hideMenu();
 
 
 // var timerId = setInterval(function() { //запускаем проверку на меню
@@ -17,7 +17,7 @@ window.onload = hideMenu();
 
 //document.getElementById('needTop').onresize = console.log('!!!');
 
-function changeTop(needColor) {
+function changeTop(needColor) { //изменяем цвет потолка
     //console.log(document.getElementById('needTop').style.borderTopColor);
     var color;
     if (needColor == null) {color = document.getElementById('needTop').style.borderTopColor} else {
@@ -69,47 +69,47 @@ function changeKarniz(karnizType) {
     }
     document.getElementById(karnizType).hidden=false;
 }
-function hideMenu() {
-    console.log('Высота окна: '+document.documentElement.clientHeight);
-    console.log('Высота прокрутки: '+window.pageYOffset);
+// function hideMenu() {
+//     console.log('Высота окна: '+document.documentElement.clientHeight);
+//     console.log('Высота прокрутки: '+window.pageYOffset);
 
-    var fullView = document.documentElement.clientHeight;
-    var curentScroll = window.pageYOffset
-    var fullWidth = document.documentElement.clientWidth;
+//     var fullView = document.documentElement.clientHeight;
+//     var curentScroll = window.pageYOffset
+//     var fullWidth = document.documentElement.clientWidth;
 
-    if (curentScroll < fullView) {
-        if(fullWidth >= 992) {
-            document.getElementById('menu').hidden= true;
-            //document.getElementById('menu').className += " showMenu";
-            console.log('srabotalo');
-        }
-    } else {
-        document.getElementById('menu').hidden= false ;
-    }
-}
+//     if (curentScroll < fullView) {
+//         if(fullWidth >= 992) {
+//             document.getElementById('menu').hidden= true;
+//             //document.getElementById('menu').className += " showMenu";
+//             console.log('srabotalo');
+//         }
+//     } else {
+//         document.getElementById('menu').hidden= false ;
+//     }
+// }
 
-function showMenu() {
-    setInterval(function() {
-    //////Выводим меню:
-        var menu = document.getElementById('menu');
-        menu.style.position = 'fixed';
-        menu.style.width = '100%';
-        var tryIt = menu.style.top;
-        document.getElementById('menu').hidden= false ;
-        if(tryIt == '') { // задали top
+// function showMenu() {
+//     setInterval(function() {
+//     //////Выводим меню:
+//         var menu = document.getElementById('menu');
+//         menu.style.position = 'fixed';
+//         menu.style.width = '100%';
+//         var tryIt = menu.style.top;
+//         document.getElementById('menu').hidden= false ;
+//         if(tryIt == '') { // задали top
             
-            menu.style.top = '-66px';
-        } else {
-            //console.log(parseInt(menu.style.top, 10));
-            menu.style.top = parseInt(menu.style.top, 10)+1+'px';
-        }
-        if (parseInt(menu.style.top, 10) >= 0) {
-            //console.log('!!!');
-            clearInterval();
-        } 
-    }, 20);
+//             menu.style.top = '-66px';
+//         } else {
+//             //console.log(parseInt(menu.style.top, 10));
+//             menu.style.top = parseInt(menu.style.top, 10)+1+'px';
+//         }
+//         if (parseInt(menu.style.top, 10) >= 0) {
+//             //console.log('!!!');
+//             clearInterval();
+//         } 
+//     }, 20);
     //////прячем меню
-}
+//}
 
 // function checkMenu() {
 //     //var fullView = document.documentElement.clientHeight; // на всю высоту
@@ -128,9 +128,26 @@ function showMenu() {
 // }
 
 function chengeFoto(folder) {
+    selectFirstImage();
     var images = document.getElementsByClassName('primer');
     for (var i =0; i < images.length; i++) {
         var ii = i+1;
         images[i].src = 'img/examples/'+folder+'/primer'+ii+'.jpg';
     }
 }
+
+function selectFirstImage() {
+    var targ = document.getElementsByClassName('car');//.remove('active');
+    for (var i=0; i<targ.length; i++) {
+        targ[i].classList.remove('active');
+    }
+    document.getElementById('caruselLI').classList.add('active');
+
+    var fot = document.getElementsByClassName('carousel-item');
+   
+    for (var i=3; i<fot.length; i++) {
+        fot[i].classList.remove('active');
+    }
+    fot[3].classList.add('active');
+}
+

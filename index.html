@@ -55,7 +55,7 @@
         </form> -->
     </nav>
     <!-- Слайдер (ВИЗИТКА) -->
-    <div class="container-fluid p-0 mycol h-100">
+    <div class="container-fluid mt-1 p-0 mycol h-100">
         <div id="caruselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li class="active" data-target="#caruselExampleIndicators" data-slide-to="0"></li>
@@ -121,7 +121,7 @@
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-7 col-xl-6 heig1">
                                 <div class="div">
-                                    <p class="p-big float-left text-left"><b>- При заказе натяжного потолка ПВХ карниз в подарок</b></p>
+                                    <p class="p-big float-left text-white text-left"><b>- При заказе натяжного потолка ПВХ карниз в подарок</b></p>
 
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                         <div class="row ">
                             <div class="col-6 col-sm-6 col-md-6 col-lg-7 col-xl-6 heig1
                             d-flex flex-wrap align-content-end">
-                                <p class="p-big float-right text-right"><b>При заказе натяжного потолка светильники в подарок -</b></p>
+                                <p class="p-big text-white float-right text-right"><b>При заказе натяжного потолка светильники в подарок -</b></p>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-5 col-xl-6 
                             heig1 ">
@@ -148,27 +148,29 @@
 
 
     <!-- Примеры работ -->
-    <div class="container-fluid text-center mt-1" id="primery">
+    <div class="container-fluid text-center " id="primery">
         <!-- <br> -->
-        <span class="text-center" style="color:aliceblue;">
+        <!-- <span class="text-center" style="color:aliceblue;">
             Примеры работ
-        </span>
+        </span> -->
+        <br>
+        <h3 class="p-big2 text-white font-weight-bold mt-5">Примеры работ</h3>
 
         <div class="container mt-4">
             <div class="row text-center">
                 <div class="col">
                     <div id="caruselExampleIndicators2" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li class="active" data-target="#caruselExampleIndicators2" data-slide-to="0"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="1"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="2"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="3"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="4"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="5"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="6"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="7"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="8"></li>
-                            <li data-target="#caruselExampleIndicators2" data-slide-to="9"></li>
+                            <li class="active car" data-target="#caruselExampleIndicators2" data-slide-to="0" id="caruselLI"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="1"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="2"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="3"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="4"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="5"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="6"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="7"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="8"></li>
+                            <li class="car" data-target="#caruselExampleIndicators2" data-slide-to="9"></li>
                         </ol>
                         <div class="carousel-inner vizitka2">
                             <!-- 1 -->
@@ -240,9 +242,12 @@
 
     <!-- 3D Визуализация -->
     <div class="container-fluid text-center" id="3D">
-        <span class="text-center" style="color:aliceblue;">
+        <!-- <span class="text-center" style="color:aliceblue;">
             3D Визуализация
-        </span>
+        </span> -->
+        <br>
+        <h3 class="p-big2 text-white font-weight-bold mt-5">3D Визуализация</h3>
+
         <div class="row">
             <div class="col-12 col-md-8  w-90">
                 <img src="" alt="" class="d-block position-absolute mt-0" id="needTop" onclick="changeTop(null);">
@@ -389,9 +394,16 @@
 
 
 <!-- Рассчитать заказ -->
-    <div class="container-fluid p-0 mycol h-100 mb-5">
+    <div class="container-fluid p-0 mt-5 mycol h-100 mb-5">
             <form action="complet.php" method="POST">
         <div style="height: 500px; border: 10px solid red; background-color: antiquewhite;">
+
+                
+                <div class="d-flex justify-content-center my-1">
+                    <br>
+                    <h3 class="p-big2 text-red font-weight-bold ">Разместить заказ</h3>
+                </div>
+
             <div class="row">
                 <!--Линия-->
                 <div class="col-md-6 col-sm-12 mt-3 ">
@@ -401,7 +413,7 @@
                             <label class="t-norm float-right my-1 align-baseline" for="perim">Площадь помещения (м<sup>2</sup>)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" required name="perim" style="width: 60px;">
+                            <input type="number" class="form-control" required name="perim" style="width: 80px;" data-bv-integer-message="Введите площадь помещения">
                         </div>
                     </div>
                 </div>
@@ -412,7 +424,7 @@
                             <label class="t-norm float-right" for="svet">Светильники (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" required name="svet" style="width: 60px;">
+                            <input type="number" class="form-control" required name="svet" style="width: 80px;" data-bv-integer-message="Введите количество светильников">
                         </div>
                     </div>
                 </div>
@@ -427,7 +439,7 @@
                             <label class="t-norm float-right" for="angle">Количество углов (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" required name="angle" style="width: 60px;">
+                            <input type="number" class="form-control" required name="angle" style="width: 80px;">
                         </div>
                     </div>
                 </div>
@@ -438,7 +450,7 @@
                             <label class="t-norm float-right" for="chandelier">Количество люстр (шт)</label>
                         </div>
                         <div class="col-4  ">
-                            <input type="text" class="form-control" required name="chandelier" style="width: 60px;">
+                            <input type="number" class="form-control" required name="chandelier" style="width: 80px;">
                         </div>
                     </div>
                 </div>
@@ -449,7 +461,7 @@
                     <div class="row">
                         
                         <div class="col-12 justify-content-center ">
-                            <input type="text" name="clientName" class="form-control mx-auto" required name="space" style="width: 60%;" placeholder="Введите Имя">
+                            <input type="text" name="name" class="form-control mx-auto" required name="space" style="width: 60%;" placeholder="Введите Имя">
                         </div>
                     </div>
                 </div>
@@ -460,7 +472,7 @@
                         <div class="col-12 ">
                                 <div class="container">
                                 
-                                    <input type="text" name="clientPhone" style="width: 60%;" class="form-control bfh-phone mx-auto" data-format="+375( dd ) ddd-dd-dd"/>
+                                    <input type="text" name="phone" style="width: 60%;" class="form-control bfh-phone mx-auto" data-format="+375( dd ) ddd-dd-dd"/>
                                 
                             </div>
                         </div>
@@ -476,12 +488,16 @@
     </div>
     <!-- </div> -->
 
-    <div class="conteiner-fluid ">
+    <div class="container-fluid p-0 mt-5 mycol h-100 mb-5 ">
         <div class="justify-content-center">
-                <a>Что нужно знать для заказа натяжных потолков:</a>
+                <!-- <a>Что нужно знать для заказа натяжных потолков:</a> -->
+                <div class="d-flex justify-content-center my-1">
+                        <br>
+                        <h3 class="p-big2 text-white font-weight-bold ">Что нужно знать для заказа натяжных потолков:</h3>
+                    </div>
         </div>
         
-        <div id="accordion" role="tablist">
+        <div id="accordion" role="tablist" class="w-100">
             <div class="card">
               <div class="card-header" role="tab" id="headingOne">
                 <h5 class="mb-0">
@@ -499,6 +515,7 @@
             </div>
             
     </div>
+    <br><br><br>
 
     <!-- <input type="button" value="try" onclick="tryThis();"> -->
     <!-- Optional JavaScript -->

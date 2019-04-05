@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   <?php
-  require_once 'orderController.php'; // подключаем скрипт
+require_once 'orderController.php'; // подключаем скрипт
 if (isset($_GET["phone"])) {
     //echo 'orderPhone';
     $newOrder = array();
@@ -19,12 +19,17 @@ if (isset($_GET["phone"])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script src="orderScript.js"></script> <!-- подключили JS -->
 
     <title>Orders</title>
   </head>
   <body>
   <div class="m-3">
-  <button type="button" class="btn btn-primary"><a href="index.php" class="text-light">Back</a></button>
+  <button type="button" class="btn btn-primary"><a href="test.php" class="text-light">Back</a></button>
   <button type="button" class="btn btn-primary"><a href="order.php" class="text-light">Refresh</a></button>
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="fillOrder();">
     Crate New Order
@@ -77,13 +82,13 @@ if (isset($_GET["phone"])) {
             <div class="input-group-prepend">
                 <span class="input-group-text">Дата заказа</span>
             </div>
-            <input type="date" class="form-control" id="startDate" name="startDate">
+            <input type="date" class="form-control" id="startDate" name="startDate" value="2000-00-00">
         </div>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Время поступления заказа</span>
             </div>
-            <input type="time" class="form-control" id="startTime" name="startTime">
+            <input type="time" class="form-control" id="startTime" name="startTime" value="00:00">
         </div>
         <!-- <button onclick="alert(document.getElementById('startTime').value);">123</button> -->
 
@@ -98,7 +103,7 @@ if (isset($_GET["phone"])) {
 </div>
 </form>
 
-<form method="get" action="index.php">
+<form method="get" action="order.php">
 <div class="container-fluid" id="start">
   <div class="card">
   <div class="card-body">
@@ -137,9 +142,6 @@ if (isset($_GET["phone"])) {
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="orderScript.js"></script> <!-- подключили JS -->
+    
   </body>
 </html>

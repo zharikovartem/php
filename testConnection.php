@@ -3,14 +3,15 @@ $host = 'localhost'; // адрес сервера
 $database = 'id9110365_mydb'; // имя базы данных
 $user = 'id9110365_root'; // имя пользователя
 $password = 'gfhjkm4501'; // пароль
+$fields = getFieldNames('account');
+$allSettings = selectAll('taskSettings');
 
-function selectAll($name)
-{
+function selectAll($name) {
     global $host, $database, $user, $password;
     $query = 'SELECT * FROM ' . $name;
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link));
+    $result = mysqli_query($link, $query) or die("Ошибка2 в selectAll(): " . mysqli_error($link));
     ///////////////////////////////////////////////////////////
     if ($result) {
         $rows = mysqli_num_rows($result); // количество полученных строк
@@ -36,14 +37,15 @@ function insertNew($name, $arr)
     
     $fields = "(";
     $values = " VALUES (";
-    $lastField = count($arr)-1;
+    $lastField = count($arr);
     $i = 0;
+    
     foreach ($arr as $key => $value) {
-        //if ($value == '') {$value=0;}
-        if ($key != 'id') {
+
+        //if ($key != 'id'  && $key != 'client' && $key != 'perim' && $key != 'svet' && $key != 'angle' && $key != 'chandelier') {
+        if ($key != 'id'  ) {
             $fields = $fields . '`' . $key . '`';
             $values = $values . '\'' . $value . '\'';
-//echo $key.' = '.$value.'<br>';
             $i++;
             if ($i == $lastField) {
                 $fields = $fields . ')';
@@ -52,22 +54,30 @@ function insertNew($name, $arr)
                 $fields = $fields . ', ';
                 $values = $values . ', ';
             }
+        } else {
+            $lastField--;
+            if($key == 'client' && $key == 'perim' && $key == 'svet' && $key == 'angle' && $key == 'chandelier') {
+                $newPotolok[$key] = $value;
+            }
         }
     }
+    if(count($newPotolok)>0) {
+        insertNewPotolok($newPotolok, $arr['phone']);
+    }
+
     $query = "INSERT INTO `$name`".$fields.''.$values;
-    //echo  $fields . '<br>';
-    //echo  $values . '<br>';
+
+    echo '<br>insertNew<br>'.$query.'<br><br>';
 
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка1 " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link)); 
+    $result = mysqli_query($link, $query) or die("Ошибка2 в insertNew(): " . mysqli_error($link)); 
 
-
-    //$sql = mysqli_query($link, "INSERT INTO `'.$name.'` (`Name`, `Price`) VALUES ('{$_GET['Name']}', '{$_GET['Id']}')");
-    //echo "INSERT INTO `$name` (`Name`, `id`) VALUES ('{$arr['id']}', '{$arr['name']}')";
     mysqli_close($link);
     return null;
 }
+
+
 
 function dellIt($name, $id) {
     global $host, $database, $user, $password;
@@ -77,7 +87,7 @@ function dellIt($name, $id) {
 
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка1 " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link)); 
+    $result = mysqli_query($link, $query) or die("Ошибка2 в dellIt(): " . mysqli_error($link)); 
 
 
     mysqli_close($link);
@@ -100,11 +110,11 @@ function editTask($name, $arr) {
        }
     }
     $query = "UPDATE `$name` SET".$item.' WHERE `'.$name.'`.`id` = '.$arr['id'];
-    //echo $query;
+    //echo '<br>editTask:<br>'.$query.'<br><br>';
 
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка1 " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link)); 
+    $result = mysqli_query($link, $query) or die("Ошибка2 в editTask: " . mysqli_error($link)); 
 
 
     mysqli_close($link);
@@ -112,16 +122,25 @@ function editTask($name, $arr) {
 }
 
 function printCard($id) {
-    global $arr;
-
+    global $arr, $allSettings;
     $hide = '';
+    //$allSettings = selectAll('taskSettings');
+
+    $show = '';
+
+    if($allSettings['1']['data'] == '0' && $arr[$id]['completed'] == true) {
+        $show = 'hidden';
+        //echo 'for: '.$id.'data: '.$allSettings['1']['data'].'   completed: '.$arr[$id]['completed'].'<br>';
+      }
+
+    
     if ($arr[$id]['completed'] == true) {
         $hide = "text-black-50";
     }
 
     echo '
-    <div class="card">
-    <div class="card-header" role="tab" id="heading'.$id.'">
+    <div class="card" >
+    <div class="card-header" role="tab" id="heading'.$id.'" '.$show.'>
       <h5 class="mb-0">
         <span>'.$arr[$id]['id'].'</span>
         <a id="name'.$id.'" class="'.$hide.'" data-toggle="collapse" href="#collapse'.$id.'" aria-expanded="false" aria-controls="collapse'.$id.'">'.$arr[$id]['name'].'</a>
@@ -261,3 +280,143 @@ function saveTime($time) {
     echo '<br>result: '.$time['start'];//298
 }
  
+
+
+
+
+
+//////// for site complet.php:
+
+function newOrder($arr) {
+    $allOrders = selectAll('account');
+    //Проверяем account
+    $indidClient = 0;
+    foreach ($allOrders as $key => $value) {
+        if($value['phone'] == $arr['phone']) {
+            $indidClient = $value['id'];
+            //echo 'id: '.$value['id'].'<br>';
+        }
+    }
+    if($indidClient == 0) {
+        newKlient($arr);
+    } else {
+        //echo $indidClient;
+        $arr['id'] = $indidClient;
+        oldClient($arr);
+    }
+    //Создаем order
+    $orderFields = getFieldNames('orders');
+    $order = array();
+    foreach ($orderFields as $key => $value) {
+        //echo $value.'<br>';
+        if($arr[$value] != '') {
+            $order[$value] = $arr[$value];
+        } else {
+            if ($value == 'startDate') {
+                $order[$value] = date('Y-m-d');
+                //echo date('d m Y H:i:s').'<br>';
+            }
+            if ($value == 'startTime') {
+                $order[$value] = date('H:i:s');
+                //echo date('d m Y H:i:s').'<br>';
+            }
+        }
+    }
+    $accounts = selectAll('account');
+    foreach ($accounts as $key => $value) {
+        if($value['phone'] == $arr['phone']) {
+            $order['clientId'] = $value['id'];
+        }
+    }
+    echo '<br>пробуем создать order<br>';
+    insertNew('orders', $order);
+
+    //Создаем potolok:
+    $potolokFields = getFieldNames('potolok');
+    $newPotolok = array();
+    foreach ($potolokFields as $key => $value) {
+        if ($arr[$value] != null) {
+            echo 'est '.$value.' = '.$arr[$value].'<br>';
+            $newPotolok[$value] = $arr[$value];
+        }
+    }
+    $orders = selectAll('orders');
+     foreach ($orders as $key => $value) {
+         if($value['startDate'] == $order['startDate'] && $value['startTime'] == $order['startTime']) {
+            $newPotolok['orderId'] = $value['id'];
+         }
+     }
+     $newPotolok['client'] = $order['clientId'];
+     //допилить проверку на совпадение даты и времени
+     echo '<br>пробуем создать product. ID client: '.$newPotolok['client'].'<br>';
+     var_dump($newPotolok);
+     insertNewObject('potolok', $newPotolok);
+
+}
+
+function oldClient($arr) {
+    //echo 'klienta est!<br>';
+    $fields = getFieldNames('account');
+    $editAccount = array();
+    $editAccount['id'] = $arr['id'];
+    foreach ($fields as $key => $value) {
+        //echo $key.' - '.$value.'<br>';
+        $editAccount[$value] = $arr[$value];
+    }
+
+    editTask('account', $editAccount);
+}
+
+function newKlient($arr) {
+    global $fields;
+    //echo 'klienta net<br>';
+    //$fields = getFieldNames('account');
+    $newAccount = array();
+    foreach ($fields as $key => $value) {
+        //echo $key.' - '.$value.'<br>';
+        $newAccount[$value] = $arr[$value];
+    }
+    //echo count($newAccount['phone']);
+    insertNew('account', $newAccount);
+}
+
+function getFieldNames($name) {
+    global $host, $database, $user, $password;
+    $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '$database' AND TABLE_NAME = '$name'";
+
+    $link = mysqli_connect($host, $user, $password, $database)
+        or die("Ошибка1 " . mysqli_error($link));
+    $result = mysqli_query($link, $query) or die("Ошибка2 в getFieldNames: " . mysqli_error($link)); 
+
+    if ($result) {
+        $rows = mysqli_num_rows($result); // количество полученных строк
+        $arrfields = array();
+
+        for ($i = 0; $i < $rows; ++$i) {
+            $row = mysqli_fetch_assoc($result); //каждая отдельная строка возвращается в виде Map
+            for ($j = 0; $j < count($row); $j++) {
+                $arrfields[$i] = $row["COLUMN_NAME"];
+            }
+        }
+        mysqli_free_result($result);
+    }
+
+    mysqli_close($link);
+    return $arrfields;
+}
+
+function insertNewObject($object, $arr) {
+    $fields = getFieldNames($object);
+    $resultObject = array();
+    var_dump($arr);
+    foreach ($fields as $key => $value) {
+        if($arr[$value] != '') {
+            echo 'insert :'.$value.' = '.$arr[$value].'<br>';
+            $resultObject[$value] = $arr[$value];
+        }
+    }
+
+    echo '$resultObject'.'<br>';
+    var_dump($resultObject);
+    insertNew($object, $resultObject);
+}

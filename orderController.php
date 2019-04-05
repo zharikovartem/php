@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost'; // адрес сервера 
-$database = 'mydb'; // имя базы данных
-$user = 'root'; // имя пользователя
-$password = ''; // пароль
+$database = 'id9110365_mydb'; // имя базы данных
+$user = 'id9110365_root'; // имя пользователя
+$password = 'gfhjkm4501'; // пароль
 
 function createNewOrder($arr) {
     var_dump($arr);
@@ -32,7 +32,7 @@ function insertNew($name, $arr)
         }
     }
     $query = "INSERT INTO `$name`".$fields.''.$values;
-
+echo $query;
     $link = mysqli_connect($host, $user, $password, $database)
         or die("Ошибка1 " . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link)); 
@@ -65,18 +65,54 @@ function selectAll($name)
     return $arr;
 }
 
+$accounts = selectAll('account');
+$potoloks = selectAll('potolok');
+
 function setOrderRow($arr) {
-    echo '
+   global $accounts, $potoloks;
+
+    $needAccount = array();
+    foreach ($accounts as $key => $value) {
+        if($arr['clientId'] == $value['id']) {
+            $needAccount = $value;
+        }
+    }
+
+    //require_once 'testConnection.php';
+    $i = 0;
+    $products = '<a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseExample'.$arr['id'].'" aria-expanded="false" aria-controls="collapseExample'.$arr['id'].'">
+                    Товары
+                </a>
+                <div class="collapse" id="collapseExample'.$arr['id'].'">
+                    <div class="card card-body">';
     
+    foreach ($potoloks as $key => $value) {
+        if($arr['id'] == $value['orderId']) {
+            $i++;
+            if($i > 1) {$row1 = '<br>';} else {$row1 = '';}
+            $row1 = $row1.'<span>'.$value['id'].'</span>';
+            $products = $products.''.$row1;
+            //echo 'sovp: '.$products;
+        }
+    }
+    $products = $products.'</div> </div>';
+
+    if ($i == 0) {$products = '';}
+
+    echo '
     <li class="list-group-item">'.
-    '<button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Select</button>'
-    .'<a id="rowName'.$arr['id'].'">'.$arr['name'].'</a> - 
-    <a id="rowPhone'.$arr['id'].'">'.$arr['phone'].'</a>
+    '<span>№'.$arr['id'].'</span>
+    <button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Select</button>'
+    .'<a id="rowName'.$arr['id'].'">'.$needAccount['name'].'</a> - 
+    <a id="rowPhone'.$arr['id'].'">'.$needAccount['phone'].'</a>
+    
+    ('.count($potoloks).')prods: 
+    '.$products.'
     <div hidden>
-        <a id="adressSity'.$arr['id'].'">'.$arr['adressSity'].'</a>
-        <a id="adressStreet'.$arr['id'].'">'.$arr['adressStreet'].'</a>
-        <a id="adressHouse'.$arr['id'].'">'.$arr['adressHouse'].'</a>
-        <a id="adressRoom'.$arr['id'].'">'.$arr['adressRoom'].'</a>
+        <a id="adressSity'.$arr['id'].'">'.$needAccount['adressSity'].'</a>
+        <a id="adressStreet'.$arr['id'].'">'.$needAccount['adressStreet'].'</a>
+        <a id="adressHouse'.$arr['id'].'">'.$needAccount['adressHouse'].'</a>
+        <a id="adressRoom'.$arr['id'].'">'.$needAccount['adressRoom'].'</a>
     </div>
     </li>
     ';

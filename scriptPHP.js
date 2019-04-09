@@ -23,6 +23,20 @@ function editIt(id) {
     var time = document.getElementById('time'+id).innerHTML;
     console.log(time);
     document.getElementById('formGroupExampleInput5').value = time; //time
+
+    var sel = document.getElementById('type');//type
+    var options = document.getElementById('type').options;
+    var needOption = document.getElementById('type'+id).innerHTML;
+    console.log('needOption: '+needOption);
+    for (var i=0; i < options.length; i++) {
+        if(options[i].value == needOption) {
+            console.log(sel.selectedIndex);
+            sel.selectedIndex = i;
+            break;
+        }
+    }
+
+
 }
 
 function chengecheckbox() {
@@ -52,6 +66,7 @@ function createNew() {
     document.getElementById('formGroupExampleInput2').value = '';
     document.getElementById('formGroupExampleInput3').value = '0';
     document.getElementById('formGroupExampleInput4').checked = false;
+    document.getElementById('type').selectedIndex = 0;
     //document.getElementById('complited'+id).innerHTML = '';
 }
 
@@ -108,7 +123,11 @@ function stop() {
 }
 
 function setTime() {
+    //alert('work');
     var time = document.getElementById('timeAfterStart').innerHTML;
+    //alert(time);
     document.getElementById('stop').innerHTML = '<input type="time" name="timeAfterStart" hidden value="'+time+'">'+
     '<input type="text" name="timeId" value=""></input>';
+    //alert('work2');
+    document.forms["complete"].submit();
 }

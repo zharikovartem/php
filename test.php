@@ -1,6 +1,6 @@
 <?php
 require_once 'testConnection.php'; // подключаем скрипт
-echo 'test';
+echo '<br>test';
 //var_dump (selectAll('task'));
 ?>
 
@@ -110,7 +110,7 @@ echo 'test';
   </div>
 </div>
 
-<form method="get" action="test.php">
+<form method="get" id="complete" action="test.php">
 <div class="container-fluid" id="start">
   <div class="card">
   <div class="card-body">
@@ -128,7 +128,7 @@ echo 'test';
     <input type="text" name="startId" id="startId" hidden/>
     <br>
     <a class="btn btn-primary" onclick="stop();">Pause</a>
-    <button type="submit" class="btn btn-primary" onclick="setTime();">Complete</button>
+    <button type="submit" for="complete" class="btn btn-primary" onclick="setTime();">Complete</button>
   </div>
   </div>
 </div>
@@ -142,8 +142,24 @@ echo 'test';
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="createNew();">
             Create New Task
         </button>
-        <a href="order.php">orders</a>
+        <button type="button" class="btn btn-primary"><a href="order.php" class="text-light">orders</a></button>
+        <button type="button" class="btn btn-primary"><a href="analiz.php" class="text-light">Analiz</a></button>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -188,6 +204,17 @@ echo 'test';
                                 <div class="form-group">
                                     <label for="formGroupExampleInput5">Время</label>
                                     <input type="time" value="00:00:00" class="form-control bfh-timepicker" data-time="00:00" id="formGroupExampleInput5" name="realization" placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                <label for="formGroupExampleInput5">Тип задачи</label>
+                                  <select id="type" name="type" class="custom-select">
+                                    <option class="type" selected value="Task">Task</option>
+                                    <option class="type" value="Folder">Folder</option>
+                                    <option class="type" value="Project">Project</option>
+                                  </select>
                                 </div>
                             </div>
                         </div>
@@ -244,7 +271,6 @@ echo 'test';
     </div>
     </div>
 
-    <button onclick="test();">test</button>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

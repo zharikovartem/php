@@ -10,7 +10,7 @@ function selectAll($name) {
     global $host, $database, $user, $password;
     $query = 'SELECT * FROM ' . $name;
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка " . mysqli_error($link));
+        or die("Ошибка подключения к БД " . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 в selectAll(): " . mysqli_error($link));
     ///////////////////////////////////////////////////////////
     if ($result) {
@@ -70,7 +70,7 @@ function insertNew($name, $arr)
     echo '<br>insertNew<br>'.$query.'<br><br>';
 
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка1 " . mysqli_error($link));
+        or die("Ошибка1 БД insertNew" . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 в insertNew(): " . mysqli_error($link)); 
 
     mysqli_close($link);
@@ -86,7 +86,7 @@ function dellIt($name, $id) {
     //echo $query;
 
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка1 " . mysqli_error($link));
+        or die("Ошибка1 БД dellIt" . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 в dellIt(): " . mysqli_error($link)); 
 
 
@@ -113,7 +113,7 @@ function editTask($name, $arr) {
     //echo '<br>editTask:<br>'.$query.'<br><br>';
 
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка1 " . mysqli_error($link));
+        or die("Ошибка1 БД editTask" . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 в editTask: " . mysqli_error($link)); 
 
 
@@ -137,15 +137,36 @@ function printCard($id) {
     if ($arr[$id]['completed'] == true) {
         $hide = "text-black-50";
     }
+    $icon = '';
+    if($arr[$id]['type'] == 'Task') {
+        $icon = '<img src="img/Admin/task.png" style="
+        height: 40px; 
+        width: 40px;
+        "></img>';
+    } if($arr[$id]['type'] == 'Project') {
+        $icon = '<img src="img/Admin/project.svg" style="
+        height: 40px; 
+        width: 40px;
+        "></img>';
+    } if($arr[$id]['type'] == 'Folder') {
+        $icon = '<img src="img/Admin/folder.svg" style="
+        height: 40px; 
+        width: 40px;
+        "></img>';
+    } 
 
     echo '
     <div class="card" >
-    <div class="card-header" role="tab" id="heading'.$id.'" '.$show.'>
+    <div class="card-header py-1" role="tab" id="heading'.$id.'" '.$show.'>
       <h5 class="mb-0">
+      '.$icon.'
         <span>'.$arr[$id]['id'].'</span>
         <a id="name'.$id.'" class="'.$hide.'" data-toggle="collapse" href="#collapse'.$id.'" aria-expanded="false" aria-controls="collapse'.$id.'">'.$arr[$id]['name'].'</a>
-        <span id="child'.$id.'" hidden>'.$arr[$id]['child'].'</span>
-        <span id="complited'.$id.'" hidden>'.$arr[$id]['completed'].'</span>
+        
+            <span id="child'.$id.'" hidden>'.$arr[$id]['child'].'</span>
+            <span id="type'.$id.'" hidden>'.$arr[$id]['type'].'</span>
+            <span id="complited'.$id.'" hidden>'.$arr[$id]['completed'].'</span>
+
         <span id="timeToCompleted'.$id.'">'.getTime($id).'</span>
         <span>('.$arr[$id]['start'].')</span>
         <div class="float-right">
@@ -381,11 +402,12 @@ function newKlient($arr) {
 }
 
 function getFieldNames($name) {
+    //echo $name;
     global $host, $database, $user, $password;
     $query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '$database' AND TABLE_NAME = '$name'";
 
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка1 " . mysqli_error($link));
+        or die("Ошибка1 БД getFieldNames" . mysqli_error($link));
     $result = mysqli_query($link, $query) or die("Ошибка2 в getFieldNames: " . mysqli_error($link)); 
 
     if ($result) {

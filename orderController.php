@@ -34,8 +34,8 @@ function insertNew($name, $arr)
     $query = "INSERT INTO `$name`".$fields.''.$values;
 echo $query;
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка1 " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link)); 
+        or die("Ошибка1 insertNew:" . mysqli_error($link));
+    $result = mysqli_query($link, $query) or die("Ошибка2 insertNew:" . mysqli_error($link)); 
     mysqli_close($link);
     return 'новый заказ добавлен!';
 }
@@ -45,8 +45,8 @@ function selectAll($name)
     global $host, $database, $user, $password;
     $query = 'SELECT * FROM ' . $name;
     $link = mysqli_connect($host, $user, $password, $database)
-        or die("Ошибка " . mysqli_error($link));
-    $result = mysqli_query($link, $query) or die("Ошибка2 " . mysqli_error($link));
+        or die("Ошибка1 selectAll:" . mysqli_error($link));
+    $result = mysqli_query($link, $query) or die("Ошибка2 selectAll:" . mysqli_error($link));
     ///////////////////////////////////////////////////////////
     if ($result) {
         $rows = mysqli_num_rows($result); // количество полученных строк

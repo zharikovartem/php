@@ -1,19 +1,23 @@
 function choseOrder(id) {
-    document.getElementById('startTitle').innerHTML = document.getElementById('rowName'+id).innerHTML;
+    //document.getElementById('startTitle').innerHTML = document.getElementById('rowName'+id).innerHTML;
     //deliveryAdress
+    document.getElementById('clientName').innerHTML = document.getElementById('rowName'+id).innerHTML;
+    //console.log(document.getElementById('rowName'+id).innerHTML);
     document.getElementById('contactPhone').innerHTML = document.getElementById('rowPhone'+id).innerHTML;
-    document.getElementById('deliveryAdress').innerHTML = 
-    document.getElementById('adressSity'+id).innerHTML + " " +
-    document.getElementById('adressStreet'+id).innerHTML  + " " +
-    document.getElementById('adressHouse'+id).innerHTML  + "-" +
-    document.getElementById('adressRoom'+id).innerHTML;
+    document.getElementById('deliveryAdress').innerHTML = document.getElementById('rowSity'+id).innerHTML+', '+
+    document.getElementById('rowStreet'+id).innerHTML+' '+document.getElementById('rowHouse'+id).innerHTML+'-'+
+    document.getElementById('rowRoom'+id).innerHTML;
+    //
+    //console.log(document.getElementById('rowSity'+id).innerHTML);
+    document.getElementById('createDate').innerHTML = document.getElementById('startDate'+id).innerHTML;
+    document.getElementById('createTime').innerHTML = document.getElementById('startTime'+id).innerHTML;
 }
 
 function fillOrder() {
     console.log('try');
     var d = new Date();
     var curr_date = d.getDate();
-    console.log('curr_date.toString.length: '+curr_date.toString.length);
+    console.log('Значение: '+curr_date+' curr_date.toString.length: '+curr_date.toString.length);
     if(curr_date.toString.length == 1) {
         curr_date = "0"+curr_date;
     }

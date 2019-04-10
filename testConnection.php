@@ -353,26 +353,27 @@ function newOrder($arr) {
     insertNew('orders', $order);
 
     //Создаем potolok:
-    $potolokFields = getFieldNames('potolok');
-    $newPotolok = array();
-    foreach ($potolokFields as $key => $value) {
-        if ($arr[$value] != null) {
-            echo 'est '.$value.' = '.$arr[$value].'<br>';
-            $newPotolok[$value] = $arr[$value];
+    if($arr['perim']) {
+        $potolokFields = getFieldNames('potolok');
+        $newPotolok = array();
+        foreach ($potolokFields as $key => $value) {
+            if ($arr[$value] != null) {
+                echo 'est '.$value.' = '.$arr[$value].'<br>';
+                $newPotolok[$value] = $arr[$value];
+            }
         }
+        $orders = selectAll('orders');
+        foreach ($orders as $key => $value) {
+            if($value['startDate'] == $order['startDate'] && $value['startTime'] == $order['startTime']) {
+                $newPotolok['orderId'] = $value['id'];
+            }
+        }
+        $newPotolok['client'] = $order['clientId'];
+        //допилить проверку на совпадение даты и времени
+        echo '<br>пробуем создать product. ID client: '.$newPotolok['client'].'<br>';
+        var_dump($newPotolok);
+        insertNewObject('potolok', $newPotolok);
     }
-    $orders = selectAll('orders');
-     foreach ($orders as $key => $value) {
-         if($value['startDate'] == $order['startDate'] && $value['startTime'] == $order['startTime']) {
-            $newPotolok['orderId'] = $value['id'];
-         }
-     }
-     $newPotolok['client'] = $order['clientId'];
-     //допилить проверку на совпадение даты и времени
-     echo '<br>пробуем создать product. ID client: '.$newPotolok['client'].'<br>';
-     var_dump($newPotolok);
-     insertNewObject('potolok', $newPotolok);
-
 }
 
 function oldClient($arr) {
@@ -442,3 +443,69 @@ function insertNewObject($object, $arr) {
     var_dump($resultObject);
     insertNew($object, $resultObject);
 }
+
+$accounts = selectAll('account');
+$potoloks = selectAll('potolok');
+
+function setOrderRow($arr) {
+    global $accounts, $potoloks;
+    
+    //var_dump($arr);
+    //var_dump($accounts);
+    //var_dump($potoloks);
+
+     $needAccount = array();
+     foreach ($accounts as $key => $value) {
+         if($arr['clientId'] == $value['id']) {
+             $needAccount = $value;
+         }
+     }
+ 
+     $i = 0;
+     $products = '<a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseExample'.$arr['id'].'" aria-expanded="false" aria-controls="collapseExample'.$arr['id'].'">
+                     Товары
+                 </a>
+                 <div class="collapse" id="collapseExample'.$arr['id'].'">
+                     <div class="card card-body">';
+     
+     foreach ($potoloks as $key => $value) {
+         if($arr['id'] == $value['orderId']) {
+             $i++;
+             if($i > 1) {$row1 = '<br>';} else {$row1 = '';}
+             $row1 = $row1.'<span>'.$value['id'].'</span>';
+             $products = $products.''.$row1;
+             //echo 'sovp: '.$products;
+         }
+     }
+     $products = $products.'</div> </div>';
+ 
+     if ($i == 0) {$products = '';}
+ 
+     echo '
+     <li class="list-group-item">'.
+     '<span>№'.$arr['id'].'</span>
+     <button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Select</button>
+     <button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Edit</button>'
+     .'<a id="rowName'.$arr['id'].'">'.$needAccount['name'].'</a>
+     <div hidden>
+     <a id="rowPhone'.$arr['id'].'">'.$needAccount['phone'].'</a>
+     <a id="rowSity'.$arr['id'].'">'.$arr['adressSity'].'</a>
+     <a id="rowStreet'.$arr['id'].'">'.$arr['adressStreet'].'</a>
+     <a id="rowHouse'.$arr['id'].'">'.$arr['adressHouse'].'</a>
+     <a id="rowRoom'.$arr['id'].'">'.$arr['adressRoom'].'</a>
+     <a id="startDate'.$arr['id'].'">'.$arr['startDate'].'</a>
+     <a id="startTime'.$arr['id'].'">'.$arr['startTime'].'</a>
+
+     </div>
+     
+     ('.count($potoloks).')prods: 
+     '.$products.'
+     <div hidden>
+         <a id="adressSity'.$arr['id'].'">'.$needAccount['adressSity'].'</a>
+         <a id="adressStreet'.$arr['id'].'">'.$needAccount['adressStreet'].'</a>
+         <a id="adressHouse'.$arr['id'].'">'.$needAccount['adressHouse'].'</a>
+         <a id="adressRoom'.$arr['id'].'">'.$needAccount['adressRoom'].'</a>
+     </div>
+     </li>
+     ';
+ }

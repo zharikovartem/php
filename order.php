@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   <?php
-require_once 'orderController.php'; // подключаем скрипт
+require_once 'testConnection.php'; // подключаем скрипт
 if (isset($_GET["phone"])) {
     //echo 'orderPhone';
     $newOrder = array();
@@ -10,13 +10,16 @@ if (isset($_GET["phone"])) {
           $newOrder[$key] = $value;
         }
     //createNewOrder($newOrder);
-    insertNew('orders', $newOrder);
+    //insertNew('orders', $newOrder);
+    //insertNewObject('orders', $newOrder);
+    newOrder($newOrder);
 }
   ?>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<!-- Валидация: -->
+<link rel="stylesheet" type="text/css" href="bootstrapformhelpers/css/bootstrap-formhelpers.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -48,7 +51,7 @@ if (isset($_GET["phone"])) {
       </div>
       <div class="modal-body">
         ...
-
+<div class="container">
         <div class="input-group" hidden>
             <div class="input-group-prepend">
                 <span class="input-group-text" >Id</span>
@@ -60,7 +63,8 @@ if (isset($_GET["phone"])) {
             <div class="input-group-prepend">
                 <span class="input-group-text" >Контактный Телефон Заказчика</span>
             </div>
-            <input type="text" class="form-control" name="phone">
+            <!-- <input type="text" class="form-control" name="phone"> -->
+            <input type="text" name="phone" class="form-control mr-1 bfh-phone mx-auto" data-format="+375( dd ) ddd-dd-dd"/>
         </div>
         <div class="input-group">
             <div class="input-group-prepend">
@@ -90,8 +94,7 @@ if (isset($_GET["phone"])) {
             </div>
             <input type="time" class="form-control" id="startTime" name="startTime" value="00:00">
         </div>
-        <!-- <button onclick="alert(document.getElementById('startTime').value);">123</button> -->
-
+</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -108,20 +111,47 @@ if (isset($_GET["phone"])) {
   <div class="card">
   <div class="card-body">
     <h4 class="card-title" id="startTitle">Активный Заказ</h4>
+    <span>Статус заказа:</span>
     <p id="stop" class="card-text" hidden>
     
       3
     </p>
-    <span>Контактный телефон: </span> 
-    <span id="contactPhone"></span>
+    <div class="row">
+      <div class="col-6 border border-dark">
+            <span>Имя клиента: </span> 
+            <span id="clientName"></span>
+            <br>
+            <span>Контактный телефон: </span> 
+            <span id="contactPhone"></span>
+            <br>
+            <span>Адресс: </span> 
+            <span name="deliveryAdress" id="deliveryAdress"></span>
+            <br>
+            <span>Дата приема заказа: </span> 
+            <span name="createDate" id="createDate"></span>
+            <br>
+            <span>Время приема заказа: </span> 
+            <span name="createTime" id="createTime"></span>
+            <br>
+            <div hidden>
+              <input type="text" name="startId" id="startId" hidden/>
+            </div>
+      </div>
+      
+      <div class="col-6 border border-dark">
+        <span>Следующий звонок:</span>
+        <br>
+        <span>Дата доставки:</span>
+      </div>
+    </div>
+    <span>Всего позиций:</span>
+    <span>0</span>
     <br>
-    <span>Адресс: </span> 
-    <span name="deliveryAdress" id="deliveryAdress"></span>
-    <br>
-    <input type="text" name="startId" id="startId" hidden/>
-    <br>
-    <a class="btn btn-primary" onclick="stop();">Pause</a>
-    <button type="submit" class="btn btn-primary" onclick="setTime();">Complete</button>
+
+    
+      <br>
+    <!-- <a class="btn btn-primary" onclick="stop();">Pause</a>
+    <button type="submit" class="btn btn-primary" onclick="setTime();">Complete</button> -->
   </div>
   </div>
 </div>
@@ -129,6 +159,7 @@ if (isset($_GET["phone"])) {
 
 <br>
 <ul class="list-group">
+  
   <?php
   $arr = selectAll('orders');
   foreach ($arr as $key => $value) {

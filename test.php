@@ -144,6 +144,7 @@ echo '<br>test';
         </button>
         <button type="button" class="btn btn-primary"><a href="order.php" class="text-light">orders</a></button>
         <button type="button" class="btn btn-primary"><a href="analiz.php" class="text-light">Analiz</a></button>
+        <button type="button" class="btn btn-primary"><a href="diary.php" class="text-light">Diary</a></button>
     </div>
 
 

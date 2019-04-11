@@ -446,13 +446,18 @@ function insertNewObject($object, $arr) {
 
 $accounts = selectAll('account');
 $potoloks = selectAll('potolok');
+$products = selectAll('product');
+$productItems = selectAll('productItem');
+$potolokFields = getFieldNames('potolok');
+$productFields = getFieldNames('product');
 
 function setOrderRow($arr) {
-    global $accounts, $potoloks;
+    global $accounts, $potoloks, $productItems, $potolokFields, $products, $productFields;
     
     //var_dump($arr);
     //var_dump($accounts);
     //var_dump($potoloks);
+    //var_dump($products);
 
      $needAccount = array();
      foreach ($accounts as $key => $value) {
@@ -462,27 +467,116 @@ function setOrderRow($arr) {
      }
  
      $i = 0;
-     $products = '<a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseExample'.$arr['id'].'" aria-expanded="false" aria-controls="collapseExample'.$arr['id'].'">
+     //если есть дочерние товары:
+     $childProducts = '<a class="btn btn-primary float-right" data-toggle="collapse" href="#collapseExample'.$arr['id'].'" aria-expanded="false" aria-controls="collapseExample'.$arr['id'].'">
                      Товары
                  </a>
                  <div class="collapse" id="collapseExample'.$arr['id'].'">
                      <div class="card card-body">';
      
-     foreach ($potoloks as $key => $value) {
+     foreach ($productItems as $key => $value) {
          if($arr['id'] == $value['orderId']) {
-             $i++;
-             if($i > 1) {$row1 = '<br>';} else {$row1 = '';}
-             $row1 = $row1.'<span>'.$value['id'].'</span>';
-             $products = $products.''.$row1;
-             //echo 'sovp: '.$products;
+            $i++;
+            if($i > 1) {$row1 = '<br>';} else {$row1 = '';}
+            $row1 = $row1.'<span>'.$value['id'].') type: '.$value['type'].' Описание: '.$value['name'].'</span>';
+
+            //Добавляем потолки:
+            $indexPotolok = 0;
+            foreach ($potoloks as $key => $valuePotolok) {
+                if ($indexPotolok == 0 && $valuePotolok['orderId'] == $value['id']) { //отрисовываем хэдэр таблици
+                    $row1 = $row1.'
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    ';
+                    foreach ($potolokFields as $key => $valuePotolokFields) {
+                        $row1 = $row1.'
+                        <th>'.$valuePotolokFields.'</th>
+                        ';
+                    }
+                    $row1 = $row1.'
+                    </tr>
+                    </thead>
+                    ';
+                }
+                if($valuePotolok['orderId'] == $value['id']) { //
+                    $indexPotolok++;
+                    $row1 = $row1.'
+                    <tr>
+                    ';
+                        foreach ($potolokFields as $key => $valuePotolokFields) {
+                            $row1 = $row1.'
+                            <td>'.$valuePotolok[$valuePotolokFields].'</td>
+                            ';
+                        }
+                    $row1 = $row1.'
+                    </tr>
+                    ';
+                }
+            }
+            if ($indexPotolok > 0 ) {
+                    $row1 = $row1.'
+                    </tbody>
+                    </table>
+                    ';
+                }
+            // Конец добавления потолков
+
+            //Добавляем Продукты:
+            $indexPotolok = 0;
+            //echo '!!!!!!!!!!!!'.count($products).' id: '.$value['id'].'<br>';
+            foreach ($products as $keyProduct => $valueProduct) {
+                if ($indexPotolok == 0 && $valueProduct['productItemId'] == $value['id']) { //отрисовываем хэдэр таблици
+                    $row1 = $row1.'
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    ';
+                    foreach ($productFields as $key => $valuePotolokFields) {
+                        $row1 = $row1.'
+                        <th>'.$valuePotolokFields.'</th>
+                        ';
+                    }
+                    $row1 = $row1.'
+                    </tr>
+                    </thead>
+                    ';
+                }
+                if($valueProduct['productItemId'] == $value['id']) { //отрисовываем данные
+                    $indexPotolok++;
+                    $row1 = $row1.'
+                    <tr>
+                    ';
+                        foreach ($productFields as $key => $valuePotolokFields) {
+                            $row1 = $row1.'
+                            <td>'.$valueProduct[$valuePotolokFields].'</td>
+                            ';
+                        }
+                    $row1 = $row1.'
+                    </tr>
+                    ';
+                }
+            }
+            if ($indexPotolok > 0 ) {
+                    $row1 = $row1.'
+                    </tbody>
+                    </table>
+                    ';
+                }
+             // Конец добавления Продуктов
+
+             $childProducts = $childProducts.''.$row1;
+             
+
+            
          }
      }
-     $products = $products.'</div> </div>';
+     $childProducts = $childProducts.'</div> </div>';
  
-     if ($i == 0) {$products = '';}
+     if ($i == 0) {$childProducts = '';}//обнуляем товары если их нет
  
      echo '
-     <li class="list-group-item">'.
+     <li class="list-group-item" id="raw'.$arr['id'].'">'.
      '<span>№'.$arr['id'].'</span>
      <button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Select</button>
      <button class="btn btn-primary mx-2" onclick="choseOrder('.$arr['id'].');">Edit</button>'
@@ -499,7 +593,7 @@ function setOrderRow($arr) {
      </div>
      
      ('.count($potoloks).')prods: 
-     '.$products.'
+     '.$childProducts.'
      <div hidden>
          <a id="adressSity'.$arr['id'].'">'.$needAccount['adressSity'].'</a>
          <a id="adressStreet'.$arr['id'].'">'.$needAccount['adressStreet'].'</a>

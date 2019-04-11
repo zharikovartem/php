@@ -1,7 +1,7 @@
 function choseOrder(id) {
     //document.getElementById('startTitle').innerHTML = document.getElementById('rowName'+id).innerHTML;
     //deliveryAdress
-    document.getElementById('clientName').innerHTML = document.getElementById('rowName'+id).innerHTML;
+    document.getElementById('clientName').value = document.getElementById('rowName'+id).innerHTML;
     //console.log(document.getElementById('rowName'+id).innerHTML);
     document.getElementById('contactPhone').innerHTML = document.getElementById('rowPhone'+id).innerHTML;
     document.getElementById('deliveryAdress').innerHTML = document.getElementById('rowSity'+id).innerHTML+', '+
@@ -11,6 +11,10 @@ function choseOrder(id) {
     //console.log(document.getElementById('rowSity'+id).innerHTML);
     document.getElementById('createDate').innerHTML = document.getElementById('startDate'+id).innerHTML;
     document.getElementById('createTime').innerHTML = document.getElementById('startTime'+id).innerHTML;
+
+    console.log(document.getElementsByTagName('table').length);
+    var needElement = document.getElementById('raw'+id);
+    document.getElementById('totalCount').value = needElement.getElementsByTagName('table').length;
 }
 
 function fillOrder() {
@@ -42,4 +46,18 @@ function fillOrder() {
     var needtime = curr_hour + ":" + curr_min;
     document.getElementById('startTime').value = needtime;
     console.log(needtime);
+}
+
+function editRow(id) {
+    //console.log(document.getElementById(id));
+    document.getElementById(id).removeAttribute('readonly');
+    document.getElementById('editIcon').hidden = 'true';
+    document.getElementById('saveIcon').removeAttribute('hidden');
+}
+
+function saveRow(id) {
+    //document.getElementById(id).readonly = 'true';
+    document.getElementById(id).setAttribute("readonly", "readonly");
+    document.getElementById('saveIcon').hidden = 'true';
+    document.getElementById('editIcon').removeAttribute('hidden');
 }

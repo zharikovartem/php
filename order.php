@@ -27,6 +27,7 @@ if (isset($_GET["phone"])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
     <script src="orderScript.js"></script> <!-- подключили JS -->
+    <link rel="stylesheet" href="cssToPhp.css">
 
     <title>Orders</title>
   </head>
@@ -118,9 +119,23 @@ if (isset($_GET["phone"])) {
     </p>
     <div class="row">
       <div class="col-6 border border-dark">
-            <span>Имя клиента: </span> 
-            <span id="clientName"></span>
-            <br>
+        <div class="row">
+          <div class="col-11 pr-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text p-1">Имя клиента:</span>
+              </div>
+              <input type="text" class="form-control p-1" id="clientName" value="" readonly>
+            </div>
+          </div>
+          <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
+            <img src="img/Admin/Edit.png" alt="" style="height: 30px; width: 30px;" id="editIcon" class="edit" onclick="editRow('clientName');">
+            <img src="img/Admin/Save.png" alt="" style="height: 30px; width: 30px;" id="saveIcon" class="edit" onclick="saveRow('clientName');" hidden>
+          </div>
+        </div>
+            <!-- <span>Имя клиента: </span> 
+            <span id=""></span>
+            <br> -->
             <span>Контактный телефон: </span> 
             <span id="contactPhone"></span>
             <br>
@@ -144,9 +159,27 @@ if (isset($_GET["phone"])) {
         <span>Дата доставки:</span>
       </div>
     </div>
-    <span>Всего позиций:</span>
-    <span>0</span>
-    <br>
+    <div class="row">
+
+      <div class="col-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Всего позиций:</span>
+          </div>
+          <input type="text" class="form-control" id="totalCount" value="" readonly>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Всего позиций:</span>
+          </div>
+          <input type="text" class="form-control" id="totalCount?" value="???" readonly>
+        </div>
+      </div>
+
+    </div>
 
     
       <br>

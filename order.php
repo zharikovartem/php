@@ -117,15 +117,15 @@ if (isset($_GET["phone"])) {
     
       3
     </p>
-    <div class="row">
+    <div class="row" >
       <div class="col-6 border border-dark">
-        <div class="row">
+        <div class="row" id="clientName">
           <div class="col-11 pr-1">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text p-1">Имя клиента:</span>
               </div>
-              <input type="text" class="form-control p-1" id="clientName" value="" readonly>
+              <input type="text" class="form-control p-1"  value="" readonly>
             </div>
           </div>
           <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
@@ -136,19 +136,75 @@ if (isset($_GET["phone"])) {
             <!-- <span>Имя клиента: </span> 
             <span id=""></span>
             <br> -->
-        
-            <span>Контактный телефон: </span> 
+        <div class="row" id="contactPhone">
+          <div class="col-11 pr-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text p-1">Контактный телефон:</span>
+              </div>
+              <input type="text" class="form-control p-1"  value="" readonly>
+            </div>
+          </div>
+          <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
+            <img src="img/Admin/Edit.png" alt="" style="height: 30px; width: 30px;" id="editIcon" class="edit" onclick="editRow('contactPhone');">
+            <img src="img/Admin/Save.png" alt="" style="height: 30px; width: 30px;" id="saveIcon" class="edit" onclick="saveRow('contactPhone');" hidden>
+          </div>
+        </div>
+
+            <!-- <span>Контактный телефон: </span> 
             <span id="contactPhone"></span>
-            <br>
-            <span>Адресс: </span> 
+            <br> -->
+        <div class="row" id="deliveryAdress">
+          <div class="col-11 pr-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text p-1">Адресс: </span>
+              </div>
+              <input type="text" class="form-control p-1"  value="" readonly>
+            </div>
+          </div>
+          <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
+            <img src="img/Admin/Edit.png" alt="" style="height: 30px; width: 30px;" id="editIcon" class="edit" onclick="editRow('deliveryAdress');">
+            <img src="img/Admin/Save.png" alt="" style="height: 30px; width: 30px;" id="saveIcon" class="edit" onclick="saveRow('deliveryAdress');" hidden>
+          </div>
+        </div>
+            <!-- <span>Адресс: </span> 
             <span name="deliveryAdress" id="deliveryAdress"></span>
-            <br>
-            <span>Дата приема заказа: </span> 
+            <br> -->
+        <div class="row" id="createDate">
+          <div class="col-11 pr-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text p-1">Дата приема заказа:</span>
+              </div>
+              <input type="text" class="form-control p-1"  value="" readonly>
+            </div>
+          </div>
+          <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
+            <img src="img/Admin/Edit.png" alt="" style="height: 30px; width: 30px;" id="editIcon" class="edit" onclick="editRow('createDate');">
+            <img src="img/Admin/Save.png" alt="" style="height: 30px; width: 30px;" id="saveIcon" class="edit" onclick="saveRow('createDate');" hidden>
+          </div>
+        </div>
+            <!-- <span>Дата приема заказа: </span> 
             <span name="createDate" id="createDate"></span>
-            <br>
-            <span>Время приема заказа: </span> 
+            <br> -->
+        <div class="row" id="createTime">
+          <div class="col-11 pr-1">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text p-1">Время приема заказа:</span>
+              </div>
+              <input type="text" class="form-control p-1"  value="" readonly>
+            </div>
+          </div>
+          <div class="col-1 d-flex justify-content-start flex-wrap align-content-center p-0">
+            <img src="img/Admin/Edit.png" alt="" style="height: 30px; width: 30px;" id="editIcon" class="edit" onclick="editRow('createTime');">
+            <img src="img/Admin/Save.png" alt="" style="height: 30px; width: 30px;" id="saveIcon" class="edit" onclick="saveRow('createTime');" hidden>
+          </div>
+        </div>
+            <!-- <span>Время приема заказа: </span> 
             <span name="createTime" id="createTime"></span>
-            <br>
+            <br> -->
             <div hidden>
               <input type="text" name="startId" id="startId" hidden/>
             </div>
@@ -172,15 +228,40 @@ if (isset($_GET["phone"])) {
       </div>
 
       <div class="col-4">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Всего позиций:</span>
-          </div>
-          <input type="text" class="form-control" id="totalCount?" value="???" readonly>
-        </div>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Товары
+      </button>
       </div>
 
     </div>
+
+    <!--  -->
+    <p>
+      <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Link with href
+      </a> -->
+      
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <!-- <th>#</th> -->
+            <th>First Name</th>
+            <th>Last Name</th>
+          </tr>
+        </thead>
+        <tbody id="innerDataProduct">
+          
+        </tbody>
+      </table>
+
+      </div>
+    </div>
+
+
 
     
       <br>

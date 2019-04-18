@@ -50,9 +50,29 @@ function choseOrder(id) {
 
 function getChildProducts(needElement, titleSpan) {
     
+    // <ul class="list-group">
+    //     <li class="list-group-item">Morbi leo risus</li>
+    //     <li class="list-group-item">Porta ac consectetur ac</li>
+    //     <li class="list-group-item">Vestibulum at eros</li>
+    // </ul>
+    var resultText = '';
+    resultText += '<table class="table">'
+
     if (titleSpan.includes('type: product')) {
-        console.log(needElement);//нужная таблица
-        console.log(needElement.innerHTML);
+        //console.log(needElement);//нужная таблица
+        //console.log(needElement.innerHTML);
+        var itemArrey = needElement.getElementsByTagName('tr');
+
+        // if (itemArrey.length > 0) {
+        //     resultText += itemArrey[0]
+        // }
+        for (var i=1; i<itemArrey.length; i++) {
+            console.log(itemArrey[i]);
+            var item = itemArrey[i].getElementsByTagName('td')
+            for (var j=0; j<item.length; j++) {
+                console.log(item[j].innerHTML);
+            }
+        }
     }
     return 'needElement';
 }
